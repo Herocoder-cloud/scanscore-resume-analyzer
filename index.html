@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ScanScore — AI Resume Analyzer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="noise"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">◈</span>
+    <span class="brand-name">ScanScore</span>
+  </div>
+  <span class="tagline">See your resume the way an ATS does</span>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Every resume gets scanned<br/>before it gets <em>read</em>.</h1>
+    <p class="hero-sub">Paste your resume below. ScanScore runs the same kind of pass an Applicant Tracking System does — section by section — and tells you exactly where it would lose you.</p>
+  </section>
+
+  <section class="workspace">
+    <div class="panel input-panel">
+      <div class="panel-head">
+        <span class="panel-label">01 — Resume text</span>
+        <span class="char-count" id="charCount">0 characters</span>
+      </div>
+      <div class="scan-frame" id="scanFrame">
+        <textarea id="resumeInput" placeholder="Paste your full resume text here — including contact info, skills, experience, and education sections..."></textarea>
+        <div class="scan-line" id="scanLine"></div>
+      </div>
+      <div class="panel-foot">
+        <select id="roleTarget">
+          <option value="Frontend Developer">Target role: Frontend Developer</option>
+          <option value="Backend Developer">Target role: Backend Developer</option>
+          <option value="Full Stack Developer">Target role: Full Stack Developer</option>
+          <option value="Data Analyst">Target role: Data Analyst</option>
+          <option value="Business Development">Target role: Business Development</option>
+          <option value="Other">Target role: Other / General</option>
+        </select>
+        <button id="analyzeBtn">Run scan</button>
+      </div>
+    </div>
+
+    <div class="panel output-panel" id="outputPanel">
+      <div class="panel-head">
+        <span class="panel-label">02 — Scorecard</span>
+      </div>
+      <div class="output-empty" id="outputEmpty">
+        <span class="empty-mark">◈</span>
+        <p>Your scorecard appears here once a scan runs.</p>
+      </div>
+      <div class="output-loading hidden" id="outputLoading">
+        <div class="loading-bar"><div class="loading-fill"></div></div>
+        <p id="loadingText">Reading document…</p>
+      </div>
+      <div class="output-result hidden" id="outputResult">
+        <div class="score-block">
+          <div class="score-ring">
+            <svg viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="score-number" id="scoreNumber">0</div>
+          </div>
+          <div class="score-meta">
+            <span class="score-label">ATS Compatibility</span>
+            <span class="score-verdict" id="scoreVerdict">—</span>
+          </div>
+        </div>
+        <div class="sections" id="sectionsContainer"></div>
+        <div class="quickfix" id="quickfixContainer">
+          <h3>Fix these first</h3>
+          <ul id="quickfixList"></ul>
+        </div>
+      </div>
+      <div class="output-error hidden" id="outputError">
+        <p id="errorText">Something went wrong.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Built as a portfolio project · Frontend + Netlify Functions · Powered by the Groq API (Llama 3.3 70B)</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
